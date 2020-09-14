@@ -2,3 +2,84 @@
 
 // Uncomment the following line before publishing a News story
 // @import "styles/news-ellipsis";
+
+
+body { 
+  margin: 0; 
+  padding: 0; 
+}
+
+#head{
+  margin: 10px auto 20px;
+  width: 600px;
+  font-family: 'Roboto';
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#legend-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px auto 10px;
+  width: 400px;
+}
+
+#legend-text {
+  font-family: 'Roboto';
+  display: inline-block;
+}
+
+.circle1 {
+  background: #e6a030;
+  opacity: 0.5;
+  border: 1px solid orange;
+  display: inline-block;
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+}
+
+.circle2 {
+  background: #56b4ea;
+  opacity: 0.5;
+  border: 1px solid blue;
+  display: inline-block;
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+}
+
+.circle3 {
+  background: #cc79a7;
+  opacity: 0.5;
+  border: 1px solid red;
+  display: inline-block;
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+}
+
+#map {
+  margin: auto;
+  width: 600px; 
+  height: 640px;
+  @media (max-width: 560px) {
+    width: 300px; 
+    height: 400px;
+  }
+}
+
+.popup {
+  opacity: 0.8;
+}
+
+p {
+  font-family: 'Roboto';
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.name {
+  font-weight: bold;
+}
+    

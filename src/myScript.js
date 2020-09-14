@@ -3,7 +3,7 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/light-v10',
     center: [-73.9626, 40.8075],
-    zoom: 14
+    zoom: 13.8
 });
 
 
@@ -14,8 +14,16 @@ map.on('load', function () {
     map.addSource('places', {
         'type': 'geojson',
         'data': {'type': 'FeatureCollection',
-        'features': [{'type': 'Feature',
-          'properties': {'name': 'Zannys',
+        'features': [
+          {'type': 'Feature',
+          'properties': {'name': 'Chandni',
+           'status': 'Closed',
+           'tables': 0,
+           'loan': '$0-$150k',
+           'jobs': 0},
+          'geometry': {'type': 'Point', 'coordinates': [-73.9610781, 40.8011486]}},
+          {'type': 'Feature',
+          'properties': {'name': 'Zanny\'s Cafe',
            'status': 'Closed',
            'tables': 0,
            'loan': '$0-$150k',
@@ -51,7 +59,7 @@ map.on('load', function () {
           'geometry': {'type': 'Point',
            'coordinates': [-73.96584250000001, 40.8006579]}},
          {'type': 'Feature',
-          'properties': {'name': 'La Toulousianne',
+          'properties': {'name': 'La Toulousaine',
            'status': 'Closed',
            'tables': 0,
            'loan': '$0-$150k',
@@ -59,7 +67,7 @@ map.on('load', function () {
           'geometry': {'type': 'Point',
            'coordinates': [-73.9656775999999, 40.8008758]}},
          {'type': 'Feature',
-          'properties': {'name': 'Hamilton',
+          'properties': {'name': 'The Hamilton',
            'status': 'Closed',
            'tables': 0,
            'loan': '$0-$150k',
@@ -137,7 +145,7 @@ map.on('load', function () {
            'jobs': 0},
           'geometry': {'type': 'Point', 'coordinates': [-73.9648225, 40.8011679]}},
          {'type': 'Feature',
-          'properties': {'name': 'Baylander',
+          'properties': {'name': 'The Baylander',
            'status': 'Outdoor',
            'tables': 0,
            'loan': '$0-$150k',
@@ -166,7 +174,7 @@ map.on('load', function () {
           'geometry': {'type': 'Point',
            'coordinates': [-73.96090600000001, 40.8014423]}},
          {'type': 'Feature',
-          'properties': {'name': 'Red Hot',
+          'properties': {'name': 'Red Hot Hot Pot',
            'status': 'Outdoor',
            'tables': 10,
            'loan': '$0-$150k',
@@ -196,7 +204,7 @@ map.on('load', function () {
           'geometry': {'type': 'Point',
            'coordinates': [-73.9618127999999, 40.8002891]}},
          {'type': 'Feature',
-          'properties': {'name': 'Calaveras',
+          'properties': {'name': 'The Calaveras',
            'status': 'Outdoor',
            'tables': 13,
            'loan': '$0-$150k',
@@ -825,7 +833,7 @@ map.on('load', function () {
          {'type': 'Feature',
           'properties': {'name': 'Suma',
            'status': 'Takeout',
-           'tables': 0,
+           'tables': 4,
            'loan': '$0-$150k',
            'jobs': 0},
           'geometry': {'type': 'Point', 'coordinates': [-73.9653026, 40.8014793]}},
@@ -840,7 +848,7 @@ map.on('load', function () {
          {'type': 'Feature',
           'properties': {'name': 'Happy Hot Hunan',
            'status': 'Outdoor',
-           'tables': 4,
+           'tables': 2,
            'loan': '$0-$150k',
            'jobs': 0},
           'geometry': {'type': 'Point', 'coordinates': [-73.9646963, 40.8013524]}},
@@ -1259,18 +1267,29 @@ map.on('load', function () {
         'paint': {
             'circle-radius': 8,
             'circle-opacity': 0.5,
+            'circle-stroke-width': 1,
             // https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
             
             // change color here
             'circle-color': [
                 'match',
-                ['get', 'loan'],
-                '$0-$350k',
-                '#0A92B2',
-                '$150k-$350k',
-                '#0F5363',
+                ['get', 'status'],
+                'Closed',
+                '#e6a030',
+                'Outdoor',
+                '#56b4ea',
                 /* other */
-                '#141414'
+                '#cc79a7'
+            ],
+            'circle-stroke-color': [
+                'match',
+                ['get', 'status'],
+                'Closed',
+                '#e6a030',
+                'Outdoor',
+                '#56b4ea',
+                /* other */
+                '#cc79a7'
             ]
         }
     });
@@ -1278,7 +1297,8 @@ map.on('load', function () {
     // Create a popup, but don't add it to the map yet.
     var popup = new mapboxgl.Popup({
         closeButton: false,
-        closeOnClick: false
+        closeOnClick: false,
+        className: 'popup'
     });
 
     map.on('mouseenter', 'places', function (e) {
@@ -1288,6 +1308,10 @@ map.on('load', function () {
         var coordinates = e.features[0].geometry.coordinates.slice();
         var name = e.features[0].properties.name;
         var status = e.features[0].properties.status;
+        var tables = "none"
+        if(e.features[0].properties.tables !== 0){
+          tables = e.features[0].properties.tables
+        }
 
         // Ensure that if the map is zoomed out such that multiple
         // copies of the feature are visible, the popup appears
@@ -1300,7 +1324,9 @@ map.on('load', function () {
         // based on the feature found.
 
         // ADD CSS HERE WOULD BE NICE
-        var formatted_html = "<h3>" + name + "</h3>" + "<p>current status: " + status + "</p>"
+        var formatted_html = "<p class = 'name'>" + name + "</p>" + 
+                             "<p class = 'status'>current status: " + status + "</p>" + 
+                             "<p class = 'tables'>tables: " + tables + "</p>"
         popup.setLngLat(coordinates).setHTML(formatted_html).addTo(map);
     });
 
