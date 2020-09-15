@@ -440,7 +440,7 @@ map.on('load', function () {
          {'type': 'Feature',
           'properties': {'name': 'Elysian Fields',
            'status': 'Outdoor',
-           'tables': 0,
+           'tables': 10,
            'loan': '$0-$150k',
            'jobs': 0},
           'geometry': {'type': 'Point', 'coordinates': [-73.9592048, 40.8088413]}},
