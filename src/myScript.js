@@ -1254,7 +1254,7 @@ map.on('load', function () {
            'loan': '$500k-$1mm',
            'jobs': 160},
           'geometry': {'type': 'Point',
-           'coordinates': [-73.9714889999999, 40.795879]}}]}
+           'coordinates': [-73.9662993, 40.8042726]}}]} 
     });
 
     /********************* END OF DATA LOADING *********************/
