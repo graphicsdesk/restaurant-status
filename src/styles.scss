@@ -82,4 +82,13 @@ p {
 .name {
   font-weight: bold;
 }
-    
+
+#note{
+  margin: 20px auto 10px;
+  width: 600px;
+  font-family: 'Roboto';
+  font-size: 14px;
+  p {
+    color: #777777;
+  }
+}
